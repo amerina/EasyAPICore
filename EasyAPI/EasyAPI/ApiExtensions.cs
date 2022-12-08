@@ -5,14 +5,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System;
 
-namespace EasyAPI
+namespace EasyAPICore
 {
     /// <summary>
     /// Add Dynamic WebApi
     /// </summary>
     public static class ApiExtensions
     {
-        public static IApplicationBuilder UseEasyApi(this IApplicationBuilder application, Action<IServiceProvider, ApiOptions> optionsAction)
+        public static IApplicationBuilder UseEasyAPICore(this IApplicationBuilder application, Action<IServiceProvider, ApiOptions> optionsAction)
         {
             var options = new ApiOptions();
 
@@ -55,7 +55,7 @@ namespace EasyAPI
         }
 
 
-        public static IServiceCollection AddEasyApi(this IServiceCollection services)
+        public static IServiceCollection AddEasyAPICore(this IServiceCollection services)
         {
             services.AddSingleton<ServiceConvention>();
             services.AddSingleton<ControllerFeatureProvider>();
@@ -63,12 +63,12 @@ namespace EasyAPI
         }
 
         /// <summary>
-        /// Add EasyApi Container
+        /// Add EasyAPICore Container
         /// </summary>
         /// <param name="services"></param>
         /// <param name="options">configuration</param>
         /// <returns></returns>
-        public static IServiceCollection AddEasyApi(this IServiceCollection services, ApiOptions options)
+        public static IServiceCollection AddEasyAPICore(this IServiceCollection services, ApiOptions options)
         {
             if (options == null)
             {
@@ -90,7 +90,7 @@ namespace EasyAPI
 
             if (partManager == null)
             {
-                throw new InvalidOperationException("\"AddEasyApi\" must be after \"AddMvc\".");
+                throw new InvalidOperationException("\"AddEasyAPICore\" must be after \"AddMvc\".");
             }
 
             // Add a custom controller checker
@@ -102,18 +102,18 @@ namespace EasyAPI
                 o.Conventions.Add(new ServiceConvention(options.RouteBuilder));
             });
 
-            services.AddEasyApi();
+            services.AddEasyAPICore();
 
             return services;
         }
 
-        public static IServiceCollection AddEasyApi(this IServiceCollection services, Action<ApiOptions> optionsAction)
+        public static IServiceCollection AddEasyAPICore(this IServiceCollection services, Action<ApiOptions> optionsAction)
         {
             var ApiOptions = new ApiOptions();
 
             optionsAction?.Invoke(ApiOptions);
 
-            return AddEasyApi(services, ApiOptions);
+            return AddEasyAPICore(services, ApiOptions);
         }
 
     }

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Reflection;
 
-namespace EasyAPI
+namespace EasyAPICore
 {
     [Serializable]
     [AttributeUsage(AttributeTargets.Interface | AttributeTargets.Class | AttributeTargets.Method)]
-    public class RemoteServiceAttribute : Attribute
+    public class EasyAPIAttribute : Attribute
     {
         /// <summary>
         /// Default: true.
@@ -24,7 +24,7 @@ namespace EasyAPI
         /// </summary>
         public string Name { get; set; }
 
-        public RemoteServiceAttribute(bool isEnabled = true)
+        public EasyAPIAttribute(bool isEnabled = true)
         {
             IsEnabled = isEnabled;
             IsMetadataEnabled = true;
@@ -52,37 +52,37 @@ namespace EasyAPI
 
         public static bool IsExplicitlyEnabledFor(Type type)
         {
-            var remoteServiceAttr = type.GetTypeInfo().GetSingleAttributeOrNull<RemoteServiceAttribute>();
+            var remoteServiceAttr = type.GetTypeInfo().GetSingleAttributeOrNull<EasyAPIAttribute>();
             return remoteServiceAttr != null && remoteServiceAttr.IsEnabledFor(type);
         }
 
         public static bool IsExplicitlyDisabledFor(Type type)
         {
-            var remoteServiceAttr = type.GetTypeInfo().GetSingleAttributeOrNull<RemoteServiceAttribute>();
+            var remoteServiceAttr = type.GetTypeInfo().GetSingleAttributeOrNull<EasyAPIAttribute>();
             return remoteServiceAttr != null && !remoteServiceAttr.IsEnabledFor(type);
         }
 
         public static bool IsMetadataExplicitlyEnabledFor(Type type)
         {
-            var remoteServiceAttr = type.GetTypeInfo().GetSingleAttributeOrNull<RemoteServiceAttribute>();
+            var remoteServiceAttr = type.GetTypeInfo().GetSingleAttributeOrNull<EasyAPIAttribute>();
             return remoteServiceAttr != null && remoteServiceAttr.IsMetadataEnabledFor(type);
         }
 
         public static bool IsMetadataExplicitlyDisabledFor(Type type)
         {
-            var remoteServiceAttr = type.GetTypeInfo().GetSingleAttributeOrNull<RemoteServiceAttribute>();
+            var remoteServiceAttr = type.GetTypeInfo().GetSingleAttributeOrNull<EasyAPIAttribute>();
             return remoteServiceAttr != null && !remoteServiceAttr.IsMetadataEnabledFor(type);
         }
 
         public static bool IsMetadataExplicitlyDisabledFor(MethodInfo method)
         {
-            var remoteServiceAttr = method.GetSingleAttributeOrNull<RemoteServiceAttribute>();
+            var remoteServiceAttr = method.GetSingleAttributeOrNull<EasyAPIAttribute>();
             return remoteServiceAttr != null && !remoteServiceAttr.IsMetadataEnabledFor(method);
         }
 
         public static bool IsMetadataExplicitlyEnabledFor(MethodInfo method)
         {
-            var remoteServiceAttr = method.GetSingleAttributeOrNull<RemoteServiceAttribute>();
+            var remoteServiceAttr = method.GetSingleAttributeOrNull<EasyAPIAttribute>();
             return remoteServiceAttr != null && remoteServiceAttr.IsMetadataEnabledFor(method);
         }
     }

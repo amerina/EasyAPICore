@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using System.Reflection;
 
-namespace EasyAPI
+namespace EasyAPICore
 {
     internal static class ServiceCollectionExtensions
     {

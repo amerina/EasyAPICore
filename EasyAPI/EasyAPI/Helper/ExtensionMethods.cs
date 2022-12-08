@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace EasyAPI
+namespace EasyAPICore
 {
     internal static class ExtensionMethods
     {

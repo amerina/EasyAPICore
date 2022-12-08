@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace EasyAPI
+namespace EasyAPICore
 {
     public static class ReflectionHelper
     {

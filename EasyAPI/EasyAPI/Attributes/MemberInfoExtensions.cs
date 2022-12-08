@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reflection;
 
-namespace EasyAPI
+namespace EasyAPICore
 {
 
     /// <summary>

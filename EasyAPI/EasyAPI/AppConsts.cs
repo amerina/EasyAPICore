@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace EasyAPI
+namespace EasyAPICore
 {
     public static class AppConsts
     {

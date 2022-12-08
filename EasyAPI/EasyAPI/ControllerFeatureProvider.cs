@@ -1,7 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc.Controllers;
-using System.Reflection;
+﻿using System.Reflection;
 
-namespace EasyAPI
+namespace EasyAPICore
 {
     /// <summary>
     /// 判断一个类是否需要自动生成Controller
@@ -15,13 +14,13 @@ namespace EasyAPI
                 return false;
             }
 
-            var remoteServiceAttr = ReflectionHelper.GetSingleAttributeOrDefault<RemoteServiceAttribute>(type);
+            var remoteServiceAttr = ReflectionHelper.GetSingleAttributeOrDefault<EasyAPIAttribute>(type);
             if (remoteServiceAttr != null && !remoteServiceAttr.IsEnabledFor(type))
             {
                 return false;
             }
 
-            if (typeof(IRemoteService).IsAssignableFrom(type))
+            if (typeof(IEasyAPI).IsAssignableFrom(type))
             {
                 return true;
             }

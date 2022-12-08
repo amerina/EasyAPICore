@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace EasyAPI
+namespace EasyAPICore
 {
     internal static class TypeHelper
     {

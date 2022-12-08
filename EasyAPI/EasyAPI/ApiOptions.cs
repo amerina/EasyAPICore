@@ -2,9 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
 
-namespace EasyAPI
+namespace EasyAPICore
 {
     public class ApiOptions
     {

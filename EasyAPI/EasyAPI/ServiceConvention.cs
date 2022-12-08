@@ -6,7 +6,7 @@ using System;
 using System.Linq;
 using System.Reflection;
 
-namespace EasyAPI
+namespace EasyAPICore
 {
     public class ServiceConvention : IApplicationModelConvention
     {
@@ -34,7 +34,7 @@ namespace EasyAPI
                 }
                 else
                 {
-                    var remoteServiceAttr = ReflectionHelper.GetSingleAttributeOrDefault<RemoteServiceAttribute>(controllerType.GetTypeInfo());
+                    var remoteServiceAttr = ReflectionHelper.GetSingleAttributeOrDefault<EasyAPIAttribute>(controllerType.GetTypeInfo());
                     if (remoteServiceAttr != null && remoteServiceAttr.IsEnabledFor(controllerType))
                     {
                         ConfigureRemoteService(controller);
@@ -45,7 +45,7 @@ namespace EasyAPI
 
         protected virtual bool ImplementsRemoteServiceInterface(Type controllerType)
         {
-            return typeof(IRemoteService).GetTypeInfo().IsAssignableFrom(controllerType);
+            return typeof(IEasyAPI).GetTypeInfo().IsAssignableFrom(controllerType);
         }
 
         protected virtual void ConfigureRemoteService(ControllerModel controller)
@@ -75,7 +75,7 @@ namespace EasyAPI
 
         protected virtual bool IsVisibleRemoteService(Type controllerType)
         {
-            var attribute = ReflectionHelper.GetSingleAttributeOrDefault<RemoteServiceAttribute>(controllerType);
+            var attribute = ReflectionHelper.GetSingleAttributeOrDefault<EasyAPIAttribute>(controllerType);
             if (attribute == null)
             {
                 return true;
@@ -108,7 +108,7 @@ namespace EasyAPI
         /// <returns></returns>
         protected virtual bool? IsVisibleRemoteServiceMethod(MethodInfo method)
         {
-            var attribute = ReflectionHelper.GetSingleAttributeOrDefault<RemoteServiceAttribute>(method);
+            var attribute = ReflectionHelper.GetSingleAttributeOrDefault<EasyAPIAttribute>(method);
             if (attribute == null)
             {
                 return null;
@@ -121,7 +121,7 @@ namespace EasyAPI
         protected virtual void ConfigureSelector(ControllerModel controller)
         {
             var controllerType = controller.ControllerType.AsType();
-            var remoteServiceAtt = ReflectionHelper.GetSingleAttributeOrDefault<RemoteServiceAttribute>(controllerType.GetTypeInfo());
+            var remoteServiceAtt = ReflectionHelper.GetSingleAttributeOrDefault<EasyAPIAttribute>(controllerType.GetTypeInfo());
             if (remoteServiceAtt != null && !remoteServiceAtt.IsEnabledFor(controllerType))
             {
                 return;
@@ -156,7 +156,7 @@ namespace EasyAPI
         #region ConfigureSelector
         protected virtual void ConfigureSelector(string rootPath, string controllerName, ActionModel action)
         {
-            var remoteServiceAtt = ReflectionHelper.GetSingleAttributeOrDefault<RemoteServiceAttribute>(action.ActionMethod);
+            var remoteServiceAtt = ReflectionHelper.GetSingleAttributeOrDefault<EasyAPIAttribute>(action.ActionMethod);
             if (remoteServiceAtt != null && !remoteServiceAtt.IsEnabledFor(action.ActionMethod))
             {
                 return;

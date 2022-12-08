@@ -1,4 +1,4 @@
-﻿namespace EasyAPI
+﻿namespace EasyAPICore
 {
     /// <summary>
     /// Specifies the dynamic webapi options for the assembly.

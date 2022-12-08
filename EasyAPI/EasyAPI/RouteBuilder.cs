@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
-namespace EasyAPI
+namespace EasyAPICore
 {
     internal class RouteBuilder : IRouteBuilder
     {
