@@ -1,6 +1,7 @@
 ﻿namespace EasyAPICore
 {
-    interface IEasyAPI
+    public interface IEasyAPI
     {
+
     }
 }

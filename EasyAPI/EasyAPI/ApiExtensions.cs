@@ -12,7 +12,7 @@ namespace EasyAPICore
     /// </summary>
     public static class ApiExtensions
     {
-        public static IApplicationBuilder UseEasyAPICore(this IApplicationBuilder application, Action<IServiceProvider, ApiOptions> optionsAction)
+        public static IApplicationBuilder UseEasyAPICore(this IApplicationBuilder application, Action<IServiceProvider, ApiOptions> optionsAction = null)
         {
             var options = new ApiOptions();
 
@@ -57,6 +57,7 @@ namespace EasyAPICore
 
         public static IServiceCollection AddEasyAPICore(this IServiceCollection services)
         {
+            services.AddSingleton<IRouteBuilder, RouteBuilder>();
             services.AddSingleton<ServiceConvention>();
             services.AddSingleton<ControllerFeatureProvider>();
             return services;
