@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31321.278
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyAPI", "EasyAPI\EasyAPI.csproj", "{4CBD8A40-2BC9-4959-8997-55111C4961C1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4CBD8A40-2BC9-4959-8997-55111C4961C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CBD8A40-2BC9-4959-8997-55111C4961C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CBD8A40-2BC9-4959-8997-55111C4961C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CBD8A40-2BC9-4959-8997-55111C4961C1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {27EC4004-8AE2-45ED-A56F-35BB6447CAB0}
+	EndGlobalSection
+EndGlobal
