@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using EasyAPICore;
+using System.IO;
 
 namespace SampleWebAPI
 {
@@ -25,6 +26,9 @@ namespace SampleWebAPI
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SampleWebAPI", Version = "v1" });
+
+                //Must Add this
+                c.DocInclusionPredicate((docName, description) => true);
             });
 
             services.AddEasyAPICore();
