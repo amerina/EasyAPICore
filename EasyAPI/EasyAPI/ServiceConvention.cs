@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -22,6 +23,8 @@ namespace EasyAPICore
 
         protected virtual void ApplyForControllers(ApplicationModel application)
         {
+            RemoveDuplicateControllers(application);
+
             foreach (var controller in application.Controllers)
             {
                 var controllerType = controller.ControllerType.AsType();
@@ -40,6 +43,39 @@ namespace EasyAPICore
                         ConfigureRemoteService(controller);
                     }
                 }
+            }
+        }
+
+        protected virtual void RemoveDuplicateControllers(ApplicationModel application)
+        {
+            var controllerModelsToRemove = new List<ControllerModel>();
+
+            foreach (var controllerModel in application.Controllers)
+            {
+                var baseControllerTypes = controllerModel.ControllerType
+                    .GetBaseClasses(typeof(Controller), includeObject: false)
+                    .Where(t => !t.IsAbstract)
+                    .ToArray();
+
+                if (baseControllerTypes.Length == 0)
+                {
+                    continue;
+                }
+
+                var baseControllerModels = application.Controllers
+                    .Where(cm => baseControllerTypes.Contains(cm.ControllerType))
+                    .ToArray();
+
+                if (baseControllerModels.Length == 0)
+                {
+                    continue;
+                }
+
+                controllerModelsToRemove.Add(controllerModel);
+            }
+            foreach (var controllerModel in controllerModelsToRemove)
+            {
+                application.Controllers.Remove(controllerModel);
             }
         }
 

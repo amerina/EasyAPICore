@@ -15,9 +15,9 @@ namespace EasyAPICore
             }
 
             var remoteServiceAttr = ReflectionHelper.GetSingleAttributeOrDefault<EasyAPIAttribute>(type);
-            if (remoteServiceAttr != null && !remoteServiceAttr.IsEnabledFor(type))
+            if (remoteServiceAttr != null)
             {
-                return false;
+                return remoteServiceAttr.IsEnabledFor(type);
             }
 
             if (typeof(IEasyAPI).IsAssignableFrom(type))
