@@ -3,6 +3,9 @@ using System.Reflection;
 
 namespace EasyAPICore
 {
+    /// <summary>
+    /// 标识此特性的类将自动创建API
+    /// </summary>
     [Serializable]
     [AttributeUsage(AttributeTargets.Interface | AttributeTargets.Class | AttributeTargets.Method)]
     public class EasyAPIAttribute : Attribute

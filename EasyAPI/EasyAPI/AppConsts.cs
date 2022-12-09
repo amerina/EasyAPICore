@@ -7,19 +7,38 @@ namespace EasyAPICore
     public static class AppConsts
     {
         /// <summary>
-        /// "app".
+        /// 默认根路由
         /// </summary>
         public const string DefaultRootPath = "app";
 
+        /// <summary>
+        /// 默认HTTP Verb
+        /// </summary>
         public static string DefaultHttpVerb { get; set; }
 
+        /// <summary>
+        /// 默认AreaName
+        /// </summary>
         public static string DefaultAreaName { get; set; }
 
+        /// <summary>
+        /// 默认API前缀
+        /// </summary>
         public static string DefaultApiPreFix { get; set; }
 
+        /// <summary>
+        /// 需要移除的Service后缀
+        /// </summary>
         public static List<string> ControllerPostfixes { get; set; }
+
+        /// <summary>
+        /// 需要移除的Action后缀
+        /// </summary>
         public static List<string> ActionPostfixes { get; set; }
 
+        /// <summary>
+        /// 是否从Body获取参数
+        /// </summary>
         public static List<Type> FormBodyBindingIgnoredTypes { get; set; }
 
         public static Dictionary<string, string> HttpVerbs { get; set; }

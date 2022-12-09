@@ -9,6 +9,9 @@ using System.Reflection;
 
 namespace EasyAPICore
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class ServiceConvention : IApplicationModelConvention
     {
         protected IRouteBuilder RouteBuilder { get; }
@@ -21,6 +24,10 @@ namespace EasyAPICore
             ApplyForControllers(application);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="application"></param>
         protected virtual void ApplyForControllers(ApplicationModel application)
         {
             RemoveDuplicateControllers(application);
@@ -46,6 +53,10 @@ namespace EasyAPICore
             }
         }
 
+        /// <summary>
+        /// 移除重复的API
+        /// </summary>
+        /// <param name="application"></param>
         protected virtual void RemoveDuplicateControllers(ApplicationModel application)
         {
             var controllerModelsToRemove = new List<ControllerModel>();
@@ -79,11 +90,20 @@ namespace EasyAPICore
             }
         }
 
+        /// <summary>
+        /// 类型是否实现IEasyAPI接口
+        /// </summary>
+        /// <param name="controllerType"></param>
+        /// <returns></returns>
         protected virtual bool ImplementsRemoteServiceInterface(Type controllerType)
         {
             return typeof(IEasyAPI).GetTypeInfo().IsAssignableFrom(controllerType);
         }
 
+        /// <summary>
+        /// 配置API
+        /// </summary>
+        /// <param name="controller"></param>
         protected virtual void ConfigureRemoteService(ControllerModel controller)
         {
             ConfigureApiExplorer(controller);
@@ -91,6 +111,10 @@ namespace EasyAPICore
             ConfigureParameters(controller);
         }
         #region ConfigureApiExplorer
+        /// <summary>
+        /// 配置API是否可被Swagger发现
+        /// </summary>
+        /// <param name="controller"></param>
         protected virtual void ConfigureApiExplorer(ControllerModel controller)
         {
             if (controller.ApiExplorer.GroupName.IsNullOrEmpty())
@@ -103,6 +127,7 @@ namespace EasyAPICore
                 controller.ApiExplorer.IsVisible = IsVisibleRemoteService(controller.ControllerType);
             }
 
+            //配置每个Action是否可被Swagger发现
             foreach (var action in controller.Actions)
             {
                 ConfigureApiExplorer(action);
@@ -153,10 +178,18 @@ namespace EasyAPICore
             return attribute.IsEnabledFor(method) &&
                    attribute.IsMetadataEnabledFor(method);
         }
+        #endregion
 
+        #region ConfigureSelector
+        /// <summary>
+        /// 配置API路由信息
+        /// </summary>
+        /// <param name="controller"></param>
         protected virtual void ConfigureSelector(ControllerModel controller)
         {
             var controllerType = controller.ControllerType.AsType();
+
+            //
             var remoteServiceAtt = ReflectionHelper.GetSingleAttributeOrDefault<EasyAPIAttribute>(controllerType.GetTypeInfo());
             if (remoteServiceAtt != null && !remoteServiceAtt.IsEnabledFor(controllerType))
             {
@@ -187,9 +220,7 @@ namespace EasyAPICore
 
             return AppConsts.DefaultRootPath;
         }
-        #endregion
 
-        #region ConfigureSelector
         protected virtual void ConfigureSelector(string rootPath, string controllerName, ActionModel action)
         {
             var remoteServiceAtt = ReflectionHelper.GetSingleAttributeOrDefault<EasyAPIAttribute>(action.ActionMethod);
@@ -255,6 +286,10 @@ namespace EasyAPICore
         #endregion
 
         #region ConfigureParameters
+        /// <summary>
+        /// 配置API参数
+        /// </summary>
+        /// <param name="controller"></param>
         protected virtual void ConfigureParameters(ControllerModel controller)
         {
             /* Default binding system of Asp.Net Core for a parameter
@@ -272,6 +307,7 @@ namespace EasyAPICore
                         continue;
                     }
 
+                    //参数是否为基础类型
                     if (!TypeHelper.IsPrimitiveExtendedIncludingNullable(prm.ParameterInfo.ParameterType))
                     {
                         if (CanUseFormBodyBinding(action, prm))
